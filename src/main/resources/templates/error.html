@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head th:replace="common/header :: commonHead(~{::title}, ~{::link}, ~{::script})">
+    <meta charset="UTF-8">
+    <title>エラー画面</title>
+</head>
+<body>
+    <header th:replace="common/header :: commonHeader()"></header>
+    <p style="color: red;">エラー画面</p>
+    <footer th:replace="common/footer :: commonFooter()"></footer>
+</body>
+</html>

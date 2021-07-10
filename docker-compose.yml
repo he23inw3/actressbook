@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  actressbook_db:
+    image: postgres
+    restart: always
+    environment:
+      TZ: "Asia/Tokyo"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "actressbook"
+    ports:
+      - 5432:5432
+    volumes:
+      - ./config/postgres/initdb:/docker-entrypoint-initdb.d
+
+volumes:
+  database:
+    driver: local

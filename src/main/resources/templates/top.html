@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head th:replace="common/header :: commonHead(~{::title}, ~{::link}, ~{::script})">
+    <title>トップ画面</title>
+</head>
+<body>
+    <header th:replace="common/header :: commonHeader()"></header>
+    <!-- 女優一覧 -->
+    <div class="card-deck">
+        <div class="col-sm-3" th:each="actress: ${actressList}" style="margin-bottom: 20px;">
+            <div class="card" style="width: 18rem;">
+                <a th:href="${actress.infoUrl}">
+                    <img class="bg-placeholder-img card-img-top" th:src="${actress.imageUrl}" />
+                </a>
+                <div class="card-body">
+                    <h4 th:text="|${actress.name} (${actress.getAge})|"></h4>
+                    <p th:text="|${actress.bust}cm / ${actress.west}cm / ${actress.hip}cm|"></p>
+                    <p th:text="|${actress.niceCnt} ナイス|"></p>
+                    <button class="btn btn-primary unimplemented-btn">ナイス!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="common/dialog :: notYetDialog()"></div>
+    <footer th:replace="common/footer :: commonFooter()"></footer>
+</body>
+</html>

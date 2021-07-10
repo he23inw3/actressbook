@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.hiro72.mapper.ActressMapper">
+    <select id="selectActressList" resultType="jp.hiro72.mapper.output.ActressRecord">
+        SELECT
+            A.NAME,
+            A.BUST,
+            A.WEST,
+            A.HIP,
+            A.IMAGE_URL,
+            A.INFO_URL,
+            A.BIRTHDAY,
+            COALESCE(N.NICE_CNT, 0) AS NICE_CNT
+        FROM
+            TBL_ACTRESS A
+        LEFT OUTER JOIN (
+            SELECT
+                ACTRESS_ID,
+                COUNT(*) AS NICE_CNT
+            FROM
+                TBL_NICE
+            GROUP BY ACTRESS_ID
+        ) N
+            ON A.ACTRESS_ID = N.ACTRESS_ID
+        ORDER BY
+            RUBY ASC;
+    </select>
+</mapper>
