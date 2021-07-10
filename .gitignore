@@ -1,7 +1,6 @@
 HELP.md
 .gradle
 build/
-!build/libs/actressbook-1.0.0.jar
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
