@@ -1,1 +1,1 @@
-web: java -jar build/lib/actressbook-1.0.0.jar
+web: java -jar build/libs/actressbook-1.0.0.jar
