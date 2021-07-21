@@ -11,7 +11,7 @@ class ActressController(
     private val actressService: ActressService
 ) {
 
-    @GetMapping("/actress")
+    @GetMapping("/")
     fun top(model: Model): String {
         model["actressList"] = actressService.selectActressList()
         return "top"
