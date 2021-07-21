@@ -37,4 +37,5 @@ out/
 .vscode/
 
 ### Docker ###
-config/postgres
+config/postgres/data
+config/redis/data
