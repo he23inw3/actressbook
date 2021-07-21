@@ -1,4 +1,4 @@
-package jp.hiro72.mapper.output
+package jp.hiro72.mapper.model
 
 import java.time.LocalDate
 
