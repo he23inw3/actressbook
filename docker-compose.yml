@@ -3,6 +3,7 @@ version: "3"
 services:
   actressbook_db:
     image: postgres
+    container_name: actressbook_db
     restart: always
     environment:
       TZ: "Asia/Tokyo"
@@ -13,7 +14,30 @@ services:
       - 5432:5432
     volumes:
       - ./config/postgres/initdb:/docker-entrypoint-initdb.d
-
+  actressbook_redis:
+    image: redis
+    container_name: actressbook_redis
+    restart: always
+    ports:
+      - 6379:6379
+    command:
+      redis-server --requirepass password@0
+    volumes:
+      - ./config/redis/data:/data
+  swagger-editor:
+    image: swaggerapi/swagger-editor
+    container_name: "swagger-editor"
+    ports:
+      - "8081:8080"
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./config/swagger/openapi.yml:/usr/share/nginx/html/openapi.yml
+    environment:
+      API_URL: openapi.yml
 volumes:
   database:
     driver: local
