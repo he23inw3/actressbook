@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 女優図鑑
+  description: 女優図鑑管理API
+servers: 
+  - url: http://localhost:5000/api/system/
+paths:
+  /quizlist:
+    get:
+      tags: 
+        - Quiz
+      summary:
+        クイズ取得API
+      description: 企画日を元に該当のクイズ情報を取得
+      parameters: 
+        - in: query
+          name: startDate
+          schema:
+            type: string
+            maxLength: 8
+            minLength: 8
+          required: true
+          description: 企画日（始）
+          example: 20210322
+        - in: query
+          name: endDate
+          schema:
+            type: string
+            maxLength: 8
+            minLength: 8
+          required: true
+          description: 企画日（終）
+          example: 20210322
+      responses:
+        200:
+          description: 正常応答
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizlistGetResponse'
+        400:
+          description: パラメーターエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: 検索エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+            description: サーバー内部エラー
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+  /version:
+    get:
+      tags:
+        - Other
+      summary: 
+        バージョン取得API
+      description:
+        バージョンを取得
+      responses:
+        200:
+          description: 正常応答
+          content:
+            application/json:
+              schema:
+                properties:
+                  version:
+                    type: string
+                    example: "1.0.0"
+components:
+  schemas:
+    QuizlistGetResponse:
+      type: object
+      properties:
+        totalQuizCnt:
+          type: integer
+          description: クイズ件数
+          example: 1
+        quizList:
+          type: array
+          description: クイズ配列
+          items:
+            type: object
+            properties:
+              quizId:
+                type: string
+                description: クイズID
+                example: "00000001"
+              planday: 
+                type: string
+                description: 企画日
+                example: "20210320"
+              question:
+                type: string
+                description: 問題文
+                example: "DMM 2020/03 月間ランキングにて、９位の女優は？"
+              choices:
+                type: array
+                description: 選択肢
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: AV女優名
+                      example: 根尾あかり
+                    choiceId:
+                      type: string
+                      description: 選択肢ID
+                      example: "00000001"
+                    imageUri:
+                      type: string
+                      description: 画像URL
+                      example: "https://pics.dmm.co.jp/mono/actjpgs/medium/neo_akari.jpg"
+                    infoUri:
+                      type: string
+                      description: 情報URL
+                      example: 
+                        "https://ja.wikipedia.org/wiki/%E6%A0%B9%E5%B0%BE%E3%81%82%E3%81%8B%E3%82%8A"
+                    bust:
+                      type: integer
+                      description: バスト
+                      example: 86
+                    west:
+                      type: integer
+                      description: ウエスト
+                      example: 60
+                    hip:
+                      type: integer
+                      description: ヒップ
+                      example: 86
+                    correctFlg:
+                      type: boolean
+                      description: クイズの成否
+                      example: true
+    ErrorResponse:
+      description: エラーオブジェクト
+      type: object
+      properties:
+        message:
+          description: エラーメッセージ
+          type: string
