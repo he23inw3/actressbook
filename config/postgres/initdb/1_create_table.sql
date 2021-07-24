@@ -1,5 +1,5 @@
 ﻿-- Project Name : noname
--- Date/Time    : 2021/07/21 22:41:57
+-- Date/Time    : 2021/07/24 23:50:22
 -- Author       : ma7k5
 -- RDBMS Type   : PostgreSQL
 -- Application  : A5:SQL Mk-2
@@ -18,6 +18,7 @@ drop table if exists TBL_MANAGEMENT cascade;
 create table TBL_MANAGEMENT (
   MANAGEMENT_ID serial not null
   , MANAGEMET_STATUS character default 1 not null
+  , AGENT_NAME varchar not null
   , CREATED_DATE date
   , UPDATED_DATE date
   , constraint TBL_MANAGEMENT_PKC primary key (MANAGEMENT_ID)
@@ -62,6 +63,7 @@ create unique index ACTRESS_INDEX1
 comment on table TBL_MANAGEMENT is '管理テーブル';
 comment on column TBL_MANAGEMENT.MANAGEMENT_ID is '管理ID';
 comment on column TBL_MANAGEMENT.MANAGEMET_STATUS is '管理ステータス:1: 通常、2: メンテナンス';
+comment on column TBL_MANAGEMENT.AGENT_NAME is '管理エージェント名';
 comment on column TBL_MANAGEMENT.CREATED_DATE is '作成日付';
 comment on column TBL_MANAGEMENT.UPDATED_DATE is '更新日付';
 
