@@ -6,47 +6,64 @@ info:
 servers: 
   - url: http://localhost:5000/api/system/
 paths:
-  /quizlist:
-    get:
+  /nice_fix:
+    post:
       tags: 
-        - Quiz
+        - System
       summary:
-        クイズ取得API
-      description: 企画日を元に該当のクイズ情報を取得
+        いいね数確定API
+      description: 前日までのいいねをDBに登録する
       parameters: 
-        - in: query
-          name: startDate
+        - in: header
+          name: user-agent
           schema:
             type: string
-            maxLength: 8
-            minLength: 8
           required: true
-          description: 企画日（始）
-          example: 20210322
-        - in: query
-          name: endDate
-          schema:
-            type: string
-            maxLength: 8
-            minLength: 8
-          required: true
-          description: 企画日（終）
-          example: 20210322
+          description: ユーザーエージェント
+          example: Example User
       responses:
         200:
           description: 正常応答
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/QuizlistGetResponse'
+                $ref: '#/components/schemas/NiceFixResponse'
         400:
           description: パラメーターエラー
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-        404:
-          description: 検索エラー
+        500:
+            description: サーバー内部エラー
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+  /mode_change:
+    post:
+      tags: 
+        - System
+      summary:
+        モード切替API
+      description: 通常モード ⇔ メンテナンスモード切替を行う
+      parameters: 
+        - in: header
+          name: user-agent
+          schema:
+            type: string
+          required: true
+          description: ユーザーエージェント
+          example: Example User
+      responses:
+        200:
+          description: 正常応答
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModeChangeResponse'
+        400:
+          description: パラメーターエラー
           content:
             application/json:
               schema:
@@ -60,7 +77,7 @@ paths:
   /version:
     get:
       tags:
-        - Other
+        - System
       summary: 
         バージョン取得API
       description:
@@ -77,70 +94,34 @@ paths:
                     example: "1.0.0"
 components:
   schemas:
-    QuizlistGetResponse:
+    NiceFixResponse:
       type: object
       properties:
-        totalQuizCnt:
+        totalFixActressCnt:
           type: integer
-          description: クイズ件数
+          description: 女優総件数
           example: 1
-        quizList:
+        actressList:
           type: array
-          description: クイズ配列
+          description: 女優配列
           items:
             type: object
             properties:
-              quizId:
+              actressId:
                 type: string
-                description: クイズID
+                description: 女優ID
                 example: "00000001"
-              planday: 
-                type: string
-                description: 企画日
-                example: "20210320"
-              question:
-                type: string
-                description: 問題文
-                example: "DMM 2020/03 月間ランキングにて、９位の女優は？"
-              choices:
-                type: array
-                description: 選択肢
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      description: AV女優名
-                      example: 根尾あかり
-                    choiceId:
-                      type: string
-                      description: 選択肢ID
-                      example: "00000001"
-                    imageUri:
-                      type: string
-                      description: 画像URL
-                      example: "https://pics.dmm.co.jp/mono/actjpgs/medium/neo_akari.jpg"
-                    infoUri:
-                      type: string
-                      description: 情報URL
-                      example: 
-                        "https://ja.wikipedia.org/wiki/%E6%A0%B9%E5%B0%BE%E3%81%82%E3%81%8B%E3%82%8A"
-                    bust:
-                      type: integer
-                      description: バスト
-                      example: 86
-                    west:
-                      type: integer
-                      description: ウエスト
-                      example: 60
-                    hip:
-                      type: integer
-                      description: ヒップ
-                      example: 86
-                    correctFlg:
-                      type: boolean
-                      description: クイズの成否
-                      example: true
+              fixNiceCnt: 
+                type: integer
+                description: 移行いいね数
+                example: 1
+    ModeChangeResponse:
+      type: object
+      properties:
+        currentMode:
+          type: string
+          description: 現在のモード
+          example: "通常モード"
     ErrorResponse:
       description: エラーオブジェクト
       type: object
