@@ -14,16 +14,6 @@ services:
       - 5432:5432
     volumes:
       - ./config/postgres/initdb:/docker-entrypoint-initdb.d
-  actressbook_redis:
-    image: redis
-    container_name: actressbook_redis
-    restart: always
-    ports:
-      - 6379:6379
-    command:
-      redis-server --requirepass password@0
-    volumes:
-      - ./config/redis/data:/data
   swagger-editor:
     image: swaggerapi/swagger-editor
     container_name: "swagger-editor"
