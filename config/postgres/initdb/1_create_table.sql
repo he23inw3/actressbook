@@ -1,5 +1,5 @@
 ﻿-- Project Name : noname
--- Date/Time    : 2021/08/04 22:47:43
+-- Date/Time    : 2021/08/04 22:56:57
 -- Author       : ma7k5
 -- RDBMS Type   : PostgreSQL
 -- Application  : A5:SQL Mk-2
@@ -18,20 +18,8 @@ drop table if exists TBL_FAVORITE cascade;
 create table TBL_FAVORITE (
   USER_ID integer not null
   , ACTRESS_ID integer not null
-  , CREATED_DATE date default CURRENT_DATE
+  , CREATED_DATE date
   , constraint TBL_FAVORITE_PKC primary key (USER_ID,ACTRESS_ID)
-) ;
-
--- ログイン履歴
---* BackupToTempTable
-drop table if exists TBL_LOGIN_HISTORY cascade;
-
---* RestoreFromTempTable
-create table TBL_LOGIN_HISTORY (
-  LOGIN_HISTORY_ID serial not null
-  , USER_ID integer not null
-  , LOGINED_DATETIME datetime default CURRENT_TIMESTAMP not null
-  , constraint TBL_LOGIN_HISTORY_PKC primary key (LOGIN_HISTORY_ID)
 ) ;
 
 -- ナイステーブル
@@ -93,11 +81,6 @@ comment on table TBL_FAVORITE is 'お気に入りテーブル';
 comment on column TBL_FAVORITE.USER_ID is '利用者ID';
 comment on column TBL_FAVORITE.ACTRESS_ID is '女優ID';
 comment on column TBL_FAVORITE.CREATED_DATE is '作成日付';
-
-comment on table TBL_LOGIN_HISTORY is 'ログイン履歴';
-comment on column TBL_LOGIN_HISTORY.LOGIN_HISTORY_ID is 'ログイン履歴ID';
-comment on column TBL_LOGIN_HISTORY.USER_ID is '利用者ID';
-comment on column TBL_LOGIN_HISTORY.LOGINED_DATETIME is 'ログイン日時:ログインした日時';
 
 comment on table TBL_NICE is 'ナイステーブル:前日までのナイスを格納';
 comment on column TBL_NICE.ACTRESS_ID is '女優ID';
