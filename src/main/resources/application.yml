@@ -4,11 +4,8 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
-  redis:
-    host: ${REDIS_URL}
-    port: 6379
-    password: ${REDIS_PASSWORD}
-    database: 0
+  thymeleaf:
+    cache: false
 mybatis:
   config-location: classpath:/mybatis/mybatis-config.xml
   mapper-locations: classpath*:/mybatis/mapper/**/*.xml

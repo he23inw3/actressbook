@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.hiro72.mapper.NiceMapper">
+
+    <select id="isRegisteredNice" resultType="boolean">
+        SELECT
+            CASE WHEN COUNT(*) > 0 THEN TRUE ELSE FALSE END
+        FROM
+            TBL_NICE
+        WHERE
+            CREATED_DATE = CURRENT_DATE
+            AND ACTRESS_ID = #{actressId}
+            AND USER_ID = #{userId}
+    </select>
+
+    <insert id="niceCountUp">
+        INSERT INTO TBL_NICE(
+            ACTRESS_ID,
+            USER_ID,
+            CREATED_DATE
+        ) VALUES (
+            #{actressId},
+            #{userId},
+            CURRENT_DATE
+        ) ON
+        CONFLICT(ACTRESS_ID, USER_ID) DO
+        UPDATE
+            SET AVAILABLE_FLAG = '1'
+        WHERE
+            TBL_NICE.CREATED_DATE = CURRENT_DATE
+        ;
+    </insert>
+
+    <update id="niceCountDown">
+        UPDATE
+            TBL_NICE
+        SET
+            AVAILABLE_FLAG = '0'
+        WHERE
+            ACTRESS_ID = #{actressId}
+            AND USER_ID = #{userId}
+            AND CREATED_DATE = CREATED_DATE;
+    </update>
+</mapper>

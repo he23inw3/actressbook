@@ -1,3 +1,45 @@
-body {
-    padding-top: 70px;
+/* Color */
+.bg-image {
+  background:
+    linear-gradient(to bottom,
+      rgba(30, 144, 255, 1),
+      rgba(30, 144, 255, 0.7)
+    );
+  background-size: cover;
+}
+
+.text-navy {
+  color: #224abe;
+}
+
+.btn-navy {
+  color: white;
+  background-color: #224abe;
+}
+
+.btn-navy:hover {
+  color: white;
+  background-color: #0d47a1;
+}
+
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  opacity: 0.5;
+  border: 0;
+}
+
+/* Link */
+a {
+  text-decoration: none;
+}
+
+/* Size */
+.mh-100 {
+  height: calc(100vh - 56px)
+}
+
+.container-fluid {
+    margin-bottom: 30px;
 }

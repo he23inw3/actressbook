@@ -3,7 +3,9 @@ package jp.hiro72.entity
 import java.time.LocalDate
 
 data class ActressEntity(
+    val actressId: Int,
     val name: String,
+    val height: Int,
     val bust: Int,
     val west: Int,
     val hip: Int,
@@ -13,11 +15,12 @@ data class ActressEntity(
     val niceCnt: Int
 ) {
     fun getAge(): Int {
-        var age = LocalDate.now().year - birthday.year
-        if (LocalDate.now().month < birthday.month) {
+        val now = LocalDate.now()
+        var age = now.year - birthday.year
+        if (now.month < birthday.month) {
             age -= 1
-        } else if (LocalDate.now().month == birthday.month &&
-            LocalDate.now().dayOfMonth < birthday.dayOfMonth) {
+        } else if (now.month == birthday.month &&
+            now.dayOfMonth < birthday.dayOfMonth) {
             age -= 1
         }
         return age

@@ -5,7 +5,9 @@
 <mapper namespace="jp.hiro72.mapper.ActressMapper">
     <select id="selectActressList" resultType="jp.hiro72.mapper.model.ActressRecord">
         SELECT
+            A.ACTRESS_ID,
             A.NAME,
+            A.HEIGHT,
             A.BUST,
             A.WEST,
             A.HIP,
@@ -21,7 +23,10 @@
                 COUNT(*) AS NICE_CNT
             FROM
                 TBL_NICE
-            GROUP BY ACTRESS_ID
+            WHERE
+                AVAILABLE_FLAG = '1'
+            GROUP BY
+                ACTRESS_ID
         ) N
             ON A.ACTRESS_ID = N.ACTRESS_ID
         ORDER BY

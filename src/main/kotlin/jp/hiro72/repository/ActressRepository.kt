@@ -16,7 +16,9 @@ class ActressRepository(
         return try {
             actressMapper.selectActressList().map {
                 ActressEntity(
+                    it.actressId,
                     it.name,
+                    it.height,
                     it.bust,
                     it.west,
                     it.hip,

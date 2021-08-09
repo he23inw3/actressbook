@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ja">
-<head th:replace="common/header :: commonHead(~{::title}, ~{::link}, ~{::script})">
-    <meta charset="UTF-8">
-    <title>エラー画面</title>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      lang="ja">
+<head>
+    <meta charset="UTF-8" th:remove="tag">
 </head>
 <body>
-    <header th:replace="common/header :: commonHeader()"></header>
-    <p style="color: red;">エラー画面</p>
-    <footer th:replace="common/footer :: commonFooter()"></footer>
+    <!-- サイドバーの表示 -->
+    <div layout:fragment="sidebar"
+         th:replace="~{common/sidebar :: sidebar}">
+    </div>
+
+    <!-- コンテンツの表示 -->
+    <main layout:fragment="content"
+          class="offcanvas-outside bg-light vh-100">
+        <div class="container-fluid">
+            <div class="row mh-100 align-items-center justify-content-center">
+                <!-- エラーメッセージ -->
+                <div th:replace="~{common/message :: error}">
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

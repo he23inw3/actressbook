@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <!-- エラーメッセージ -->
+    <div th:fragment="error">
+        <div class="text-center">
+            <div class="text-muted">ページを表示できません</div>
+            <a th:href="@{/}">&larr; ホームに戻る</a>
+        </div>
+    </div>
+</body>
+</html>
