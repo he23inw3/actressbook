@@ -16,7 +16,7 @@ drop table if exists TBL_FAVORITE cascade;
 
 --* RestoreFromTempTable
 create table TBL_FAVORITE (
-  USER_ID integer not null
+  USER_ID varchar not null
   , ACTRESS_ID integer not null
   , CREATED_DATE date
   , constraint TBL_FAVORITE_PKC primary key (USER_ID,ACTRESS_ID)
@@ -29,7 +29,7 @@ drop table if exists TBL_NICE cascade;
 --* RestoreFromTempTable
 create table TBL_NICE (
   ACTRESS_ID integer not null
-  , USER_ID integer not null
+  , USER_ID varchar not null
   , AVAILABLE_FLAG char default 1 not null
   , CREATED_DATE date
   , UPDATED_DATE date
@@ -42,7 +42,7 @@ drop table if exists TBL_USER cascade;
 
 --* RestoreFromTempTable
 create table TBL_USER (
-  USER_ID serial not null
+  USER_ID varchar not null
   , NAME varchar not null
   , MAIL_ADDRESS varchar
   , PASSWORD varchar not null
