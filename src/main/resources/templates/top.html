@@ -23,7 +23,7 @@
                         </h6>
                     </div>
                 </div>
-                <div class="card-body table-responsive">
+                <div class="card-body table-responsive table-hover">
                     <table id="actress-list" class="table table-bordered">
                         <thead>
                         <tr>
@@ -39,22 +39,20 @@
                         </thead>
                         <tbody>
                         <tr th:each="actress: ${actressList}">
-                            <form method="post" th:action="@{/niceup}">
-                                <td>
-                                    <a th:href="${actress.infoUrl}">
-                                        <img class="bg-placeholder-img card-img-top" th:src="${actress.imageUrl}"/>
-                                    </a>
-                                </td>
-                                <td th:text="|${actress.name}(${actress.getAge})|"></td>
-                                <td th:text="|${actress.height} cm|"></td>
-                                <td th:text="|${actress.bust} cm|"></td>
-                                <td th:text="|${actress.west} cm|"></td>
-                                <td th:text="|${actress.hip} cm|"></td>
-                                <td th:text="${actress.niceCnt}"></td>
-                                <td><input type="submit" class="btn btn-primary nice" th:value="投票" /></td>
-                                <input type="hidden" name="actressId" th:value="${actress.actressId}" />
-                                <input type="hidden" name="userId" th:value="${userId}" />
-                            </form>
+                            <td>
+                                <a th:href="${actress.infoUrl}">
+                                    <img class="bg-placeholder-img card-img-top" th:src="${actress.imageUrl}"/>
+                                </a>
+                            </td>
+                            <td th:text="|${actress.name}(${actress.getAge})|"></td>
+                            <td th:text="|${actress.height} cm|"></td>
+                            <td th:text="|${actress.bust} cm|"></td>
+                            <td th:text="|${actress.west} cm|"></td>
+                            <td th:text="|${actress.hip} cm|"></td>
+                            <td th:text="${actress.niceCnt}" th:id="${actress.actressId}"></td>
+                            <td><button class="btn btn-primary btn-nice">投票</button></td>
+                            <input type="hidden" class="actressId" th:value="${actress.actressId}" />
+                            <input type="hidden" class="userId" th:value="${userId}" />
                         </tr>
                         </tbody>
                     </table>

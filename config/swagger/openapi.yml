@@ -3,31 +3,29 @@ info:
   version: 1.0.0
   title: 女優図鑑
   description: 女優図鑑管理API
-servers: 
+servers:
   - url: http://localhost:5000/api/system/
 paths:
-  /nice_fix:
+  /nice:
     post:
-      tags: 
+      tags:
         - System
       summary:
         いいね数確定API
-      description: 前日までのいいねをDBに登録する
-      parameters: 
-        - in: header
-          name: user-agent
-          schema:
-            type: string
-          required: true
-          description: ユーザーエージェント
-          example: Example User
+      description: 女優毎のいいねを更新する
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NiceRequest'
       responses:
         200:
           description: 正常応答
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/NiceFixResponse'
+                $ref: '#/components/schemas/NiceResponse'
         400:
           description: パラメーターエラー
           content:
@@ -35,19 +33,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         500:
-            description: サーバー内部エラー
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
+          description: サーバー内部エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /mode_change:
     post:
-      tags: 
+      tags:
         - System
       summary:
         モード切替API
       description: 通常モード ⇔ メンテナンスモード切替を行う
-      parameters: 
+      parameters:
         - in: header
           name: user-agent
           schema:
@@ -69,16 +67,16 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         500:
-            description: サーバー内部エラー
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/ErrorResponse'
+          description: サーバー内部エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /version:
     get:
       tags:
         - System
-      summary: 
+      summary:
         バージョン取得API
       description:
         バージョンを取得
@@ -94,27 +92,30 @@ paths:
                     example: "1.0.0"
 components:
   schemas:
-    NiceFixResponse:
+    NiceRequest:
       type: object
       properties:
-        totalFixActressCnt:
+        actressId:
           type: integer
-          description: 女優総件数
-          example: 1
-        actressList:
-          type: array
-          description: 女優配列
-          items:
-            type: object
-            properties:
-              actressId:
-                type: string
-                description: 女優ID
-                example: "00000001"
-              fixNiceCnt: 
-                type: integer
-                description: 移行いいね数
-                example: 1
+          description: 女優ID
+          example: 12345
+        userId:
+          type: string
+          description: ユーザーID
+          example: "00000001"
+    NiceResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          actressId:
+            type: integer
+            description: 女優ID
+            example: 12345
+          niceCnt:
+            type: integer
+            description: 移行いいね数
+            example: 1
     ModeChangeResponse:
       type: object
       properties:

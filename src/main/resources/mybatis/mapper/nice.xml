@@ -13,6 +13,7 @@
             CREATED_DATE = CURRENT_DATE
             AND ACTRESS_ID = #{actressId}
             AND USER_ID = #{userId}
+            AND AVAILABLE_FLAG='1';
     </select>
 
     <insert id="niceCountUp">
@@ -27,7 +28,9 @@
         ) ON
         CONFLICT(ACTRESS_ID, USER_ID) DO
         UPDATE
-            SET AVAILABLE_FLAG = '1'
+        SET
+            AVAILABLE_FLAG = '1',
+            UPDATED_DATE = CURRENT_DATE
         WHERE
             TBL_NICE.CREATED_DATE = CURRENT_DATE
         ;
@@ -37,7 +40,8 @@
         UPDATE
             TBL_NICE
         SET
-            AVAILABLE_FLAG = '0'
+            AVAILABLE_FLAG = '0',
+            UPDATED_DATE = CURRENT_DATE
         WHERE
             ACTRESS_ID = #{actressId}
             AND USER_ID = #{userId}
