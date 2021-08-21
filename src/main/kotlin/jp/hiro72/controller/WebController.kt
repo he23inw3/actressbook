@@ -23,13 +23,6 @@ class WebController(
         return "top"
     }
 
-    @PostMapping("/niceup")
-    fun niceUp(@ModelAttribute form: ActressForm, model: Model, redirectAttribute: RedirectAttributes): String {
-        actressService.niceCountUp(form.actressId, form.userId)
-        redirectAttribute.addAttribute("userId", form.userId)
-        return "redirect:/"
-    }
-
     private fun generateOperatorId(): String {
         return "tmp" + UUID.randomUUID().toString()
     }

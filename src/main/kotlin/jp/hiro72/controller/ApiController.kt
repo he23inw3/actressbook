@@ -5,7 +5,6 @@ import jp.hiro72.entity.ModeChangeEntity
 import jp.hiro72.entity.NiceEntity
 import jp.hiro72.entity.VersionEntity
 import jp.hiro72.service.ActressService
-import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -23,10 +22,6 @@ class ApiController(
     private val actressService: ActressService,
 ){
 
-    companion object {
-        private val logger = LoggerFactory.getLogger(this::class.java)
-    }
-
     /**
      * いいねAPI
      *
@@ -34,7 +29,6 @@ class ApiController(
     @PostMapping("/nice")
     @ResponseBody
     fun nice(@RequestBody niceForm: NiceForm): NiceEntity {
-        logger.info("いいねAPI 要求=$niceForm")
         return actressService.niceCountUp(niceForm.actressId, niceForm.userId).find {
             it.actressId == niceForm.actressId
         }?.let {
