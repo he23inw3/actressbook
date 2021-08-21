@@ -5,6 +5,7 @@
       lang="ja">
 <head>
     <meta charset="UTF-8" th:remove="tag">
+    <title>女優図鑑</title>
 </head>
 <body>
 <!-- サイドバーの表示 -->
@@ -23,25 +24,25 @@
                         </h6>
                     </div>
                 </div>
-                <div class="card-body table-responsive table-hover">
-                    <table id="actress-list" class="table table-bordered">
+                <div class="card-body table-responsive">
+                    <table id="actress-list" class="table table-bordered" summary="女優一覧">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>女優名</th>
-                            <th>身長</th>
-                            <th>バスト</th>
-                            <th>ウェスト</th>
-                            <th>ヒップ</th>
-                            <th>投票数</th>
-                            <th>投票</th>
+                            <th scope="col">#</th>
+                            <th scope="col">女優名</th>
+                            <th scope="col">身長</th>
+                            <th scope="col">バスト</th>
+                            <th scope="col">ウェスト</th>
+                            <th scope="col">ヒップ</th>
+                            <th scope="col">投票数</th>
+                            <th scope="col">投票</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="actress: ${actressList}">
                             <td>
                                 <a th:href="${actress.infoUrl}">
-                                    <img class="bg-placeholder-img card-img-top" th:src="${actress.imageUrl}"/>
+                                    <img class="bg-placeholder-img card-img-top" th:src="${actress.imageUrl}" alt="女優イメージ"/>
                                 </a>
                             </td>
                             <td th:text="|${actress.name}(${actress.getAge})|"></td>
