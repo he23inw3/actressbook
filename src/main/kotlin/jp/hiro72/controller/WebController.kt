@@ -1,26 +1,31 @@
 package jp.hiro72.controller
 
-import jp.hiro72.controller.form.ActressForm
 import jp.hiro72.service.ActressService
+import jp.hiro72.service.InfoService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import org.springframework.web.bind.annotation.PathVariable
 import java.util.*
 
 @Controller
 class WebController(
-    private val actressService: ActressService
+    private val actressService: ActressService,
+    private val infoService: InfoService
 ) {
 
     @GetMapping("/")
-    fun top(model: Model, userId: String?): String {
-        model["userId"] = userId ?: generateOperatorId()
+    fun top(model: Model): String {
+        model["userId"] = generateOperatorId()
         model["actressList"] = actressService.selectActressList()
         return "top"
+    }
+
+    @GetMapping("/info")
+    fun info(model: Model): String {
+        model["infoList"] = infoService.selectActressList()
+        return "info"
     }
 
     private fun generateOperatorId(): String {

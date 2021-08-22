@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout}"
+      lang="ja">
+<head>
+    <meta charset="UTF-8" th:remove="tag">
+    <title>女優図鑑</title>
+    <link rel="stylesheet" th:href="@{/css/info.css}" />
+    <script th:src="@{/js/info.js}" type="text/javascript"></script>
+</head>
+<body>
+<!-- サイドバーの表示 -->
+<div layout:fragment="sidebar"
+     th:replace="~{common/sidebar :: sidebar}">
+</div>
+<!-- コンテンツの表示 -->
+<main layout:fragment="content"
+      class="offcanvas-outside bg-light vh-100">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h6 class="text-navy my-2">
+                            お知らせ一覧
+                        </h6>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush" th:each="info: ${infoList}">
+                    <li class="list-group-item d-flex flex-wrap">
+                        <div class="d-flex col-12 col-md-auto" style="margin-right: 20px;">
+                            <div class="news-date" th:text="${info.createdDate}" />
+                            <div class="news-category" th:text="${info.category.categoryName}"></div>
+                        </div>
+                        <div class="news-subject col-5 col-md-9">
+                            <th:block th:if="${info.infoUrl} == ''">
+                                <div th:text="${info.title}" />
+                            </th:block>
+                            <th:block th:if="${info.infoUrl} != ''">
+                                <a th:href="${info.infoUrl}"><div th:text="${info.title}" /></a>
+                            </th:block>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
