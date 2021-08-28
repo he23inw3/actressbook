@@ -4,6 +4,7 @@ plugins {
 	id("org.springframework.boot") version "2.5.1"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
 	id("io.gitlab.arturbosch.detekt").version("1.17.1")
+	id("org.sonarqube").version("3.3")
 	kotlin("jvm") version "1.5.10"
 	kotlin("plugin.spring") version "1.5.10"
 	jacoco
@@ -66,6 +67,14 @@ detekt {
 	}
 }
 
+sonarqube {
+	properties {
+		property("sonar.projectKey", "he23inw3_actressbook")
+		property("sonar.organization", "he23inw3")
+		property("sonar.host.url", "https://sonarcloud.io")
+	}
+}
+
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
@@ -84,4 +93,3 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
 tasks.jacocoTestReport {
 	dependsOn(tasks.test)
 }
-
