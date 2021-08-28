@@ -3,6 +3,7 @@ package jp.hiro72.aop
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.annotation.After
 import org.aspectj.lang.annotation.AfterReturning
+import org.aspectj.lang.annotation.AfterThrowing
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Before
 import org.slf4j.LoggerFactory
@@ -34,5 +35,10 @@ class LogAdvice {
     @AfterReturning("within(jp.hiro72.controller.ApiController)", returning = "res")
     fun apiControllerEndLog(jp: JoinPoint, res: Object) {
         logger.info("END: {}, ARGS: {}", jp.toShortString(), res.toString())
+    }
+
+    @AfterThrowing("execution(* jp.hiro72.controller.*Controller.*(..))", throwing = "e")
+    fun exceptionLog(jp: JoinPoint, e: Exception) {
+        logger.error("ERROR!, Exception: {}, args: {}", e.message, jp.args.toList())
     }
 }

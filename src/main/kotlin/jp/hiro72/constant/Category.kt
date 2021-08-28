@@ -7,5 +7,11 @@ enum class Category(
     UNDEFINED("0", "UNDEFINED"),
     SALE("1", "SALE"),
     RELEASE("2", "RELEASE"),
-    APOLOGY("3", "APOLOGY")
+    APOLOGY("3", "APOLOGY");
+
+    companion object {
+        fun resolve(colCode: String): Category {
+            return values().find { c -> c.categoryCode == colCode } ?: UNDEFINED
+        }
+    }
 }

@@ -1,7 +1,6 @@
 package jp.hiro72.service
 
 import jp.hiro72.entity.ActressEntity
-import jp.hiro72.exception.DataCheckException
 import jp.hiro72.repository.ActressRepository
 import jp.hiro72.repository.NiceRepository
 import org.springframework.stereotype.Service
@@ -18,7 +17,7 @@ class ActressService(
         return actressRepository.selectActressInformationList()
     }
 
-    @Transactional(rollbackFor = [DataCheckException::class])
+    @Transactional(rollbackFor = [Exception::class])
     fun niceCountUp(actressId: Int, userId: String): List<ActressEntity> {
         if (niceRepository.isRegisteredNice(actressId, userId)) {
             niceRepository.niceCountDown(actressId, userId)
