@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.5.1"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
-	id("io.gitlab.arturbosch.detekt").version("1.17.1")
 	id("org.sonarqube").version("3.3")
 	kotlin("jvm") version "1.5.10"
 	kotlin("plugin.spring") version "1.5.10"
@@ -38,33 +37,6 @@ buildscript {
 	repositories {
 		gradlePluginPortal()
 	}
-	dependencies {
-		classpath("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.17.1")
-	}
-}
-
-jacoco {
-	toolVersion = "0.8.5"
-}
-
-detekt {
-	toolVersion = "1.17.1"
-	input = files("src/main/kotlin")
-	parallel = false
-	config = files("config/detekt/detekt.yml")
-	buildUponDefaultConfig = false
-	baseline = file("config/detekt/baseline.xml")
-	allRules = false
-	debug = false
-	ignoreFailures = false
-
-
-	reports {
-		html {
-			enabled = true
-			destination = file("build/reports/detekt.html")
-		}
-	}
 }
 
 sonarqube {
@@ -84,12 +56,4 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
-}
-
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
-	this.jvmTarget = "11"
-}
-
-tasks.jacocoTestReport {
-	dependsOn(tasks.test)
 }
