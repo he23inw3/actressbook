@@ -16,10 +16,10 @@ class WebController(
 ) {
 
     @GetMapping("/")
-    fun top(model: Model): String {
+    fun actress(model: Model): String {
         model["userId"] = generateOperatorId()
         model["actressList"] = actressService.selectActressList()
-        return "top"
+        return "actress"
     }
 
     @GetMapping("/info")

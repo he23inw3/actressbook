@@ -1,7 +1,6 @@
 package jp.hiro72.controller
 
 import jp.hiro72.controller.form.NiceForm
-import jp.hiro72.entity.ModeChangeEntity
 import jp.hiro72.entity.NiceEntity
 import jp.hiro72.entity.VersionEntity
 import jp.hiro72.service.ActressService
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
@@ -22,10 +20,6 @@ class ApiController(
     private val actressService: ActressService,
 ){
 
-    /**
-     * いいねAPI
-     *
-     */
     @PostMapping("/nice")
     @ResponseBody
     fun nice(@RequestBody niceForm: NiceForm): NiceEntity {
@@ -36,24 +30,9 @@ class ApiController(
         } ?: throw IllegalArgumentException()
     }
 
-    /**
-     * モード切替API
-     *
-     */
-    @PostMapping("/mode_change")
-    fun modeChange(@RequestHeader("user-agent") userAgent: String): ModeChangeEntity {
-        return ModeChangeEntity(
-            "通常モード"
-        )
-    }
-
-    /**
-     * バージョン取得API
-     *
-     * @return
-     */
     @GetMapping("/version")
+    @ResponseBody
     fun version(): VersionEntity {
-        return VersionEntity("1.0.0")
+        return VersionEntity(System.getenv("APP_VERSION"))
     }
 }
