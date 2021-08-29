@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8" th:remove="tag">
     <title>女優図鑑</title>
+    <link rel="stylesheet" th:href="@{/css/actress.css}" />
     <script th:src="@{/js/actress.js}" type="text/javascript"></script>
 </head>
 <body>
@@ -20,9 +21,7 @@
             <div class="col">
                 <div class="card shadow">
                     <div class="card-header">
-                        <h6 class="text-navy my-2">
-                            女優一覧
-                        </h6>
+                        <h6 class="text-navy my-2">女優一覧</h6>
                     </div>
                 </div>
                 <div class="card-body table-responsive">
@@ -31,6 +30,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">女優名</th>
+                            <th scope="col">年齢</th>
                             <th scope="col">身長</th>
                             <th scope="col">バスト</th>
                             <th scope="col">ウェスト</th>
@@ -43,18 +43,19 @@
                         <tr th:each="actress: ${actressList}">
                             <td>
                                 <a th:href="${actress.infoUrl}">
-                                    <img class="bg-placeholder-img card-img-top" th:src="${actress.imageUrl}" alt="女優イメージ"/>
+                                    <img class="bg-placeholder-img card-img-top" th:src="${actress.imageUrl}" alt="女優イメージ" />
                                 </a>
                             </td>
-                            <td th:text="|${actress.name}(${actress.getAge})|"></td>
+                            <td th:text="|${actress.name}|" />
+                            <td th:text="|${actress.getAge} 歳|" />
                             <td th:text="|${actress.height} cm|"></td>
                             <td th:text="|${actress.bust} cm|"></td>
                             <td th:text="|${actress.west} cm|"></td>
                             <td th:text="|${actress.hip} cm|"></td>
                             <td th:text="${actress.niceCnt}" th:id="${actress.actressId}"></td>
                             <td><button class="btn btn-primary btn-nice">投票</button></td>
-                            <input type="hidden" class="actressId" th:value="${actress.actressId}" />
-                            <input type="hidden" class="userId" th:value="${userId}" />
+                            <input type="hidden" class="actress-id" th:value="${actress.actressId}" />
+                            <input type="hidden" class="user-id" th:value="${userId}" />
                         </tr>
                         </tbody>
                     </table>

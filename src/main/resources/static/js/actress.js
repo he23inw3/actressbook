@@ -12,8 +12,8 @@ $(document).ready(function(){
             type: "POST",
             url: "api/system/nice",
             data: JSON.stringify({
-                actressId: $(this).closest("tr").find(".actressId").val(),
-                userId: $(this).closest("tr").find(".userId").val()
+                actressId: $(this).closest("tr").find(".actress-id").val(),
+                userId: $(this).closest("tr").find(".user-id").val()
             }),
             contentType: "application/json",
             dataType: "json"

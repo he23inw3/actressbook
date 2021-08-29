@@ -13,7 +13,7 @@
             CREATED_DATE = CURRENT_DATE
             AND ACTRESS_ID = #{actressId}
             AND USER_ID = #{userId}
-            AND AVAILABLE_FLAG='1';
+            AND AVAILABLE_FLAG = '1';
     </select>
 
     <insert id="niceCountUp">
@@ -32,8 +32,7 @@
             AVAILABLE_FLAG = '1',
             UPDATED_DATE = CURRENT_DATE
         WHERE
-            TBL_NICE.CREATED_DATE = CURRENT_DATE
-        ;
+            TBL_NICE.CREATED_DATE = CURRENT_DATE;
     </insert>
 
     <update id="niceCountDown">
