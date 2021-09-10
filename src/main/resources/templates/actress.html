@@ -10,59 +10,55 @@
     <script th:src="@{/js/actress.js}" type="text/javascript"></script>
 </head>
 <body>
-<!-- サイドバーの表示 -->
-<div layout:fragment="sidebar"
-     th:replace="~{common/sidebar :: sidebar}">
-</div>
-<!-- 女優一覧 -->
-<main layout:fragment="content" class="offcanvas-outside bg-light">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <div class="card shadow">
-                    <div class="card-header">
-                        <h6 class="text-navy my-2">女優一覧</h6>
+    <!-- 女優一覧 -->
+    <th:block layout:fragment="content" class="offcanvas-outside bg-light">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h6 class="text-navy my-2">女優一覧</h6>
+                        </div>
                     </div>
-                </div>
-                <div class="card-body table-responsive">
-                    <table id="actress-list" class="table table-bordered" summary="女優一覧">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">女優名</th>
-                            <th scope="col">年齢</th>
-                            <th scope="col">身長</th>
-                            <th scope="col">バスト</th>
-                            <th scope="col">ウェスト</th>
-                            <th scope="col">ヒップ</th>
-                            <th scope="col">投票数</th>
-                            <th scope="col">投票</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="actress: ${actressList}">
-                            <td>
-                                <a th:href="${actress.infoUrl}">
-                                    <img class="bg-placeholder-img card-img-top" th:src="${actress.imageUrl}" alt="女優イメージ" />
-                                </a>
-                            </td>
-                            <td th:text="|${actress.name}|" />
-                            <td th:text="|${actress.getAge} 歳|" />
-                            <td th:text="|${actress.height} cm|"></td>
-                            <td th:text="|${actress.bust} cm|"></td>
-                            <td th:text="|${actress.west} cm|"></td>
-                            <td th:text="|${actress.hip} cm|"></td>
-                            <td th:text="${actress.niceCnt}" th:id="${actress.actressId}"></td>
-                            <td><button class="btn btn-primary btn-nice">投票</button></td>
-                            <input type="hidden" class="actress-id" th:value="${actress.actressId}" />
-                            <input type="hidden" class="user-id" th:value="${userId}" />
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div class="card-body table-responsive">
+                        <table id="actress-list" class="table table-bordered table-striped dt-responsive nowrap" role="grid" aria-describedby="example2_info" style="width:100%" summary="女優一覧">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">女優名</th>
+                                <th scope="col">年齢</th>
+                                <th scope="col">身長</th>
+                                <th scope="col">バスト</th>
+                                <th scope="col">ウェスト</th>
+                                <th scope="col">ヒップ</th>
+                                <th scope="col">投票数</th>
+                                <th scope="col">投票</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="actress: ${actressList}">
+                                <td>
+                                    <a th:href="${actress.infoUrl}">
+                                        <img class="bg-placeholder-img card-img-top" th:src="${actress.imageUrl}" alt="女優イメージ" />
+                                    </a>
+                                </td>
+                                <td th:text="|${actress.name}|" />
+                                <td th:text="|${actress.getAge} 歳|" />
+                                <td th:text="|${actress.height} cm|"></td>
+                                <td th:text="|${actress.bust} cm|"></td>
+                                <td th:text="|${actress.west} cm|"></td>
+                                <td th:text="|${actress.hip} cm|"></td>
+                                <td th:text="${actress.niceCnt}" th:id="${actress.actressId}"></td>
+                                <td><button class="btn btn-primary btn-nice">投票</button></td>
+                                <input type="hidden" class="actress-id" th:value="${actress.actressId}" />
+                                <input type="hidden" class="user-id" th:value="${userId}" />
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </th:block>
 </body>
 </html>
