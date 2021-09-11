@@ -6,5 +6,5 @@ import org.apache.ibatis.annotations.Mapper
 @Mapper
 interface InfoMapper {
 
-    fun selectActressList(): List<InfoRecord>
+    fun selectInfoList(): List<InfoRecord>
 }

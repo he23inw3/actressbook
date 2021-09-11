@@ -11,7 +11,7 @@ class InfoService(
 ) {
 
     @Transactional(readOnly = true)
-    fun selectActressList(): List<InfoEntity> {
-        return infoRepository.selectActressList()
+    fun selectInfoList(): List<InfoEntity> {
+        return infoRepository.selectInfoList()
     }
 }

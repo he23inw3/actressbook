@@ -11,8 +11,8 @@ class InfoRepository(
     private val infoMapper: InfoMapper
 ) {
 
-    fun selectActressList(): List<InfoEntity> {
-        return infoMapper.selectActressList().map { createInfoEntity(it) }
+    fun selectInfoList(): List<InfoEntity> {
+        return infoMapper.selectInfoList().map { createInfoEntity(it) }
     }
 
     private fun createInfoEntity(infoRecord: InfoRecord) = InfoEntity(

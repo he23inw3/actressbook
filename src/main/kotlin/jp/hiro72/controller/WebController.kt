@@ -24,7 +24,7 @@ class WebController(
 
     @GetMapping("/info")
     fun info(model: Model): String {
-        model["infoList"] = infoService.selectActressList()
+        model["infoList"] = infoService.selectInfoList()
         return "info"
     }
 
