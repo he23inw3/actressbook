@@ -9,7 +9,7 @@ $(document).ready(function(){
                 $(element).addClass("category-release")
                 break;
             case "APOLOGY":
-                $(element).addClass("category-release")
+                $(element).addClass("category-apology")
                 break;
             default:
                 $(element).addClass("category-undefined")
