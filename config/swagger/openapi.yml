@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.0.0
+  version: 1.0.1
   title: 女優図鑑
   description: 女優図鑑管理API
 servers:
@@ -11,8 +11,8 @@ paths:
       tags:
         - System
       summary:
-        いいね数確定API
-      description: 女優毎のいいねを更新する
+        いいねAPI
+      description: 女優のいいね数を更新する
       requestBody:
         required: true
         content:
