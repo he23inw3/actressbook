@@ -10,8 +10,8 @@
 </head>
 <body>
     <!-- 女優一覧 -->
-    <th:block layout:fragment="content" class="offcanvas-outside bg-light">
-        <div class="container-fluid">
+    <th:block layout:fragment="content">
+        <div class="container-fluid offcanvas-outside bg-light" id="main">
             <div class="row">
                 <div class="col">
                     <div class="card shadow">
@@ -19,8 +19,8 @@
                             <h6 class="text-navy my-2">女優一覧</h6>
                         </div>
                     </div>
-                    <div class="card-body table-responsive">
-                        <table id="actress-list" class="table table-bordered table-striped dt-responsive nowrap" role="grid" aria-describedby="example2_info" style="width:100%" summary="女優一覧">
+                    <div class="card-body">
+                        <table id="actress-list" class="table table-bordered table-responsive table-striped dt-responsive nowrap" role="grid" aria-describedby="example2_info" style="width:100%" summary="女優一覧">
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
