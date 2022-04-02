@@ -1,5 +1,5 @@
 ﻿-- Project Name : noname
--- Date/Time    : 2021/08/22 23:21:31
+-- Date/Time    : 2022/04/02 14:28:32
 -- Author       : ma7k5
 -- RDBMS Type   : PostgreSQL
 -- Application  : A5:SQL Mk-2
@@ -10,63 +10,28 @@
   この機能は一時的に $$TableName のような一時テーブルを作成します。
 */
 
--- お気に入りテーブル
+-- 女優_SNSテーブル
 --* BackupToTempTable
-drop table if exists TBL_FAVORITE cascade;
+drop table if exists TBL_ACTRESS_SNS cascade;
 
 --* RestoreFromTempTable
-create table TBL_FAVORITE (
-  USER_ID varchar not null
-  , ACTRESS_ID integer not null
-  , CREATED_DATE date
-  , constraint TBL_FAVORITE_PKC primary key (USER_ID,ACTRESS_ID)
-) ;
-
--- お知らせテーブル
---* BackupToTempTable
-drop table if exists TBL_INFORMATION cascade;
-
---* RestoreFromTempTable
-create table TBL_INFORMATION (
-  INFO_ID serial not null
-  , USER_ID varchar not null
-  , TITLE varchar not null
-  , CATEGORY char not null
-  , INFO_URL varchar not null
-  , CREATED_DATE date default CURRENT_DATE
+create table TBL_ACTRESS_SNS (
+  ACTRESS_ID character varying not null
+  , TWITTER_URL character varying
+  , INSTAGRAM_URL character varying
+  , CREATED_DATE date not null
   , UPDATED_DATE date
-  , constraint TBL_INFORMATION_PKC primary key (INFO_ID)
+  , constraint TBL_ACTRESS_SNS_PKC primary key (ACTRESS_ID)
 ) ;
 
--- ナイステーブル
+-- システム属性テーブル
 --* BackupToTempTable
-drop table if exists TBL_NICE cascade;
+drop table if exists TBL_GENERIC_ATTR cascade;
 
 --* RestoreFromTempTable
-create table TBL_NICE (
-  ACTRESS_ID integer not null
-  , USER_ID varchar not null
-  , AVAILABLE_FLAG char default 1 not null
-  , CREATED_DATE date
-  , UPDATED_DATE date
-  , constraint TBL_NICE_PKC primary key (ACTRESS_ID,USER_ID)
-) ;
-
--- 利用者テーブル
---* BackupToTempTable
-drop table if exists TBL_USER cascade;
-
---* RestoreFromTempTable
-create table TBL_USER (
-  USER_ID varchar not null
-  , NAME varchar not null
-  , MAIL_ADDRESS varchar
-  , PASSWORD varchar not null
-  , ROLE char default 1 not null
-  , DELETE_FLAG char default 0 not null
-  , CREATED_DATE date default CURRENT_DATE
-  , UPDATED_DATE date default CURRENT_DATE
-  , constraint TBL_USER_PKC primary key (USER_ID)
+create table TBL_GENERIC_ATTR (
+  KEY character varying
+  , VALUE character varying
 ) ;
 
 -- 女優テーブル
@@ -75,7 +40,7 @@ drop table if exists TBL_ACTRESS cascade;
 
 --* RestoreFromTempTable
 create table TBL_ACTRESS (
-  ACTRESS_ID serial not null
+  ACTRESS_ID character varying not null
   , NAME character varying not null
   , RUBY character varying not null
   , HEIGHT integer not null
@@ -90,39 +55,16 @@ create table TBL_ACTRESS (
   , constraint TBL_ACTRESS_PKC primary key (ACTRESS_ID)
 ) ;
 
-create unique index ACTRESS_INDEX1
-  on TBL_ACTRESS(NAME);
+comment on table TBL_ACTRESS_SNS is '女優_SNSテーブル';
+comment on column TBL_ACTRESS_SNS.ACTRESS_ID is '女優ID';
+comment on column TBL_ACTRESS_SNS.TWITTER_URL is 'ツイッターURL';
+comment on column TBL_ACTRESS_SNS.INSTAGRAM_URL is 'インスタグラムURL';
+comment on column TBL_ACTRESS_SNS.CREATED_DATE is '作成日付';
+comment on column TBL_ACTRESS_SNS.UPDATED_DATE is '更新日付';
 
-comment on table TBL_FAVORITE is 'お気に入りテーブル:各ユーザー毎のお気に入り女優情報を管理';
-comment on column TBL_FAVORITE.USER_ID is '利用者ID';
-comment on column TBL_FAVORITE.ACTRESS_ID is '女優ID';
-comment on column TBL_FAVORITE.CREATED_DATE is '作成日付';
-
-comment on table TBL_INFORMATION is 'お知らせテーブル:お知らせ情報を管理';
-comment on column TBL_INFORMATION.INFO_ID is 'お知らせID';
-comment on column TBL_INFORMATION.USER_ID is '利用者ID:管理者のみ';
-comment on column TBL_INFORMATION.TITLE is 'タイトル';
-comment on column TBL_INFORMATION.CATEGORY is 'カテゴリ:1: セール、2: リリース、3: お詫び';
-comment on column TBL_INFORMATION.INFO_URL is '詳細情報URL';
-comment on column TBL_INFORMATION.CREATED_DATE is '作成日付';
-comment on column TBL_INFORMATION.UPDATED_DATE is '更新日付';
-
-comment on table TBL_NICE is 'ナイステーブル:前日までのナイスを格納';
-comment on column TBL_NICE.ACTRESS_ID is '女優ID';
-comment on column TBL_NICE.USER_ID is '利用者ID';
-comment on column TBL_NICE.AVAILABLE_FLAG is '有効フラグ:1: 有効 0: 無効';
-comment on column TBL_NICE.CREATED_DATE is '作成日付';
-comment on column TBL_NICE.UPDATED_DATE is '更新日付';
-
-comment on table TBL_USER is '利用者テーブル:利用者情報を格納';
-comment on column TBL_USER.USER_ID is '利用者ID:利用者ID';
-comment on column TBL_USER.NAME is '利用者名:利用者名';
-comment on column TBL_USER.MAIL_ADDRESS is 'メールアドレス:メールアドレス';
-comment on column TBL_USER.PASSWORD is 'パスワード:パスワード（MD5ハッシュ化）';
-comment on column TBL_USER.ROLE is '役割:1: 一般 2: 管理者';
-comment on column TBL_USER.DELETE_FLAG is '削除フラグ:削除フラグ 1: TRUE 0: FALSE';
-comment on column TBL_USER.CREATED_DATE is '作成日付:作成日付';
-comment on column TBL_USER.UPDATED_DATE is '更新日付:更新日付';
+comment on table TBL_GENERIC_ATTR is 'システム属性テーブル:システム情報を管理するテーブル';
+comment on column TBL_GENERIC_ATTR.KEY is 'キー';
+comment on column TBL_GENERIC_ATTR.VALUE is '値';
 
 comment on table TBL_ACTRESS is '女優テーブル:女優情報を格納';
 comment on column TBL_ACTRESS.ACTRESS_ID is '女優ID';
